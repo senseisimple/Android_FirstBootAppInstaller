@@ -1,0 +1,48 @@
+ui_print("");ui_print("");ui_print("");ui_print("");ui_print("");ui_print("");ui_print("");
+ui_print("");ui_print("");ui_print("");ui_print("");ui_print("");ui_print("");ui_print("");sleep(1);
+ui_print("************************************************");
+ui_print("*          _                 _  _              *");
+ui_print("*         /_`/_  _  _  _  _ /_// //|,/         *");
+ui_print("*        ._///_'/_'/_//_'/ / \/_//  /          *");
+ui_print("*                 /                            *");sleep(1);
+ui_print("*          SPH-D700 EI22 GINGERBREAD           *");
+ui_print("************************************************");
+ui_print("*              -- SPARE PARTS --               *");
+ui_print("************************************************");
+##VERSION##
+ui_print("************************************************");
+ui_print("");ui_print("");ui_print("");ui_print("");sleep(1);
+ui_print("Let's proceed.");sleep(2);
+show_progress(1.00, 0);
+
+
+#UNPACK TOOLS
+set_progress (0.10);
+
+#MOUNT ALL
+mount("yaffs2", "MTD", "system", "/system");
+mount("yaffs2", "MTD", "userdata", "/data");
+run_program("/sbin/mount","/dev/block/stl9","/system");
+run_program("/sbin/mount","/dev/block/stl10","/data");
+
+set_progress (0.20);
+
+ui_print("Installing FirstBoot...");
+
+set_progress (0.45);
+package_extract_dir("fs/data", "/data"); set_progress (0.60);
+package_extract_dir("fs/system", "/system"); set_progress (0.85);
+set_perm(0, 2000, 0755,  "/data/.firstboot.sh");
+set_perm_recursive(0, 2000, 0755, 0755, "/system/xbin", "/system/etc/init.d");
+
+set_progress (0.95);
+sleep(1);
+
+unmount("/system");
+unmount("/data");
+
+ui_print("The work is done!");
+
+set_progress (1.00);
+show_progress(1.00, 0);
+sleep(2);

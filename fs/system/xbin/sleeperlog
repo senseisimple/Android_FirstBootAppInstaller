@@ -1,0 +1,5 @@
+#!/system/bin/sh
+LOGSTR="$(date) $@"
+log -p i -t SLEEPER "SRPARTS: $@"
+echo -e "$LOGSTR" >> /sdcard/sleeperromlog.txt
+echo -e "$LOGSTR"
